@@ -7,11 +7,12 @@ New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "C:\Wi
 # Configuring Authentication Method
 "PasswordAuthentication yes" |Add-Content $env:ProgramData\ssh\sshd_config
 
-# Start the sshd service
-Start-Service sshd
+# Start the SSH services
+Start-Service sshd, ssh-agent
 
 # OPTIONAL but recommended:
 Set-Service -Name sshd -StartupType 'Automatic'
+Set-Service -Name ssh-agent -StartupType 'Automatic'
 
 # Confirm the Firewall rule is configured. It should be created automatically by setup. Run the following to verify
 if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyContinue | Select-Object Name, Enabled)) {
@@ -20,8 +21,3 @@ if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyCon
 } else {
     Write-Output "Firewall rule 'OpenSSH-Server-In-TCP' has been created and exists."
 }
-
-# Set-Service sshd -StartupType Automatic
-# Set-Service ssh-agent -StartupType Automatic
-
-# Restart-Service sshd,ssh-agent

@@ -1,3 +1,4 @@
+# Install OpenSSH Server & Client Windows Capability
 Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*' | Add-WindowsCapability -Online
 
 # Configuring the default shell for OpenSSH in Windows

@@ -7,4 +7,4 @@ netsh advfirewall firewall add rule name="SSH" dir=in localport=22 protocol=TCP 
 Set-Service sshd -StartupType Automatic
 Set-Service ssh-agent -StartupType Automatic
 
-Restart-Service sshd
+Restart-Service sshd,ssh-agent
